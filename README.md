@@ -178,17 +178,14 @@ income-prediction-ml-app/
 │   ├── metadata.json
 │   └── metrics.json
 ├── data/
-│   ├── adult_dataset.csv
-│   └── README.md
-├── screenshots/
-│   ├── 01-homepage-1.png
-│   ├── 01-homepage-2.png
-│   ├── 02-input-form.png
-│   ├── 03-prediction-result.png
-│   ├── 04-model-metrics-1.png
-│   ├── 04-model-metrics-2.png
-│   └── README.md
-└── portfolio-kit/
+│   └──adult_dataset.csv
+└── screenshots/
+    ├── 01-homepage-1.png
+    ├── 01-homepage-2.png
+    ├── 02-input-form.png
+    ├── 03-prediction-result.png
+    ├── 04-model-metrics-1.png
+    └── 04-model-metrics-2.png
 ```
 
 ---
