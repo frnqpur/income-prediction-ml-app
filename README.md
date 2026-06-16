@@ -6,7 +6,7 @@
 
 An end-to-end machine learning portfolio project that predicts whether a person's income category is likely to be `<=50K` or `>50K` using selected work, education, and weekly-hour attributes.
 
-> **Live demo:** `PASTE_YOUR_STREAMLIT_APP_URL_HERE`  
+> **Live demo:** `[PASTE_YOUR_STREAMLIT_APP_URL_HERE](https://income-prediction-ml-app-gw2knwg6cjnnngjwltsp4c.streamlit.app/)`  
 > **GitHub repository:** https://github.com/frnqpur/income-prediction-ml-app
 
 ---
@@ -171,7 +171,6 @@ income-prediction-ml-app/
 ├── train_model.py
 ├── requirements.txt
 ├── README.md
-├── README_DEPLOY.md
 ├── sample_input.csv
 ├── artifacts/
 │   ├── income_prediction_pipeline.joblib
@@ -198,7 +197,7 @@ income-prediction-ml-app/
 Open terminal in the project folder:
 
 ```powershell
-cd "E:\laragon\www\income-prediction-ml-app"
+cd "YOUR PROJECT DIIRECTORY"
 ```
 
 Create a virtual environment:
@@ -259,24 +258,7 @@ artifacts/metadata.json
 
 ---
 
-## Deployment
-
-Recommended deployment platforms:
-
-- Streamlit Community Cloud
-- Hugging Face Spaces
-
-Do **not** deploy this Python ML app to cPanel if the hosting plan does not support Python ML dependencies such as `pandas` and `scikit-learn`.
-
-For full deployment instructions, see:
-
-```text
-README_DEPLOY.md
-```
-
----
-
-## Recruiter View
+## Demonstrates
 
 This project demonstrates:
 
