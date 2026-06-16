@@ -1,18 +1,40 @@
-# Income Prediction Demo — Deployment Guide
+# Income Prediction ML App — Deployment Guide
 
-## Overview
+This guide explains how to deploy the Streamlit demo for the Income Prediction ML App.
 
-This folder contains a lightweight Streamlit demo for an Income Prediction machine learning project. The app predicts whether one person's income category is likely to be `<=50K` or `>50K` based on selected work, education, and weekly-hour attributes.
+Recommended platforms:
 
-The demo uses a saved scikit-learn `.joblib` pipeline:
+- Streamlit Community Cloud
+- Hugging Face Spaces
+
+Do **not** deploy this Python ML app to cPanel if your cPanel hosting does not support `pandas`, `scikit-learn`, `joblib`, or long-running Python apps.
+
+---
+
+## Final Repo Structure
+
+Recommended GitHub structure:
 
 ```text
-artifacts/income_prediction_pipeline.joblib
+income-prediction-ml-app/
+├── app.py
+├── train_model.py
+├── requirements.txt
+├── README.md
+├── README_DEPLOY.md
+├── sample_input.csv
+├── artifacts/
+│   ├── income_prediction_pipeline.joblib
+│   ├── metrics.json
+│   └── metadata.json
+├── data/
+│   ├── adult_dataset.csv
+│   └── README.md
+├── screenshots/
+└── portfolio-kit/
 ```
 
-The `.joblib` file stores the trained model pipeline, including preprocessing and the classifier. This lets the app run predictions without retraining every time.
-
-## Files required for deployment
+The most important deployment files are:
 
 ```text
 app.py
@@ -20,103 +42,188 @@ requirements.txt
 artifacts/income_prediction_pipeline.joblib
 artifacts/metrics.json
 artifacts/metadata.json
-sample_input.csv
 ```
 
-Optional for retraining:
+---
+
+## Safe requirements.txt
 
 ```text
-train_model.py
-data/adult_dataset.csv
+streamlit>=1.32,<2.0
+pandas>=2.0,<3.0
+numpy>=1.24,<3.0
+scikit-learn>=1.3,<2.0
+joblib>=1.3,<2.0
 ```
 
-## Local setup
+This app does not need heavy notebook or visualization dependencies such as:
 
-From this `demo-app` folder, create and activate a virtual environment.
+```text
+jupyter
+notebook
+matplotlib
+seaborn
+missingno
+tensorflow
+torch
+xgboost
+```
 
-### Windows
+---
 
-```bash
+## Local Test Command
+
+From the local project directory:
+
+```powershell
+cd "E:\laragon\www\income-prediction-ml-app"
 python -m venv .venv
-.venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
 pip install -r requirements.txt
-```
-
-### macOS / Linux
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-## Run the demo locally
-
-```bash
 streamlit run app.py
 ```
 
-The app will open in your browser. Fill in the form for one person and click **Predict income**.
+If the model artifact has a version mismatch, retrain it locally:
 
-## Retrain the model if needed
-
-Only retrain when the dataset, features, or model logic changes.
-
-```bash
+```powershell
 python train_model.py
+streamlit run app.py
 ```
 
-This will regenerate:
+---
+
+## Connect to GitHub
+
+Repository:
 
 ```text
-artifacts/income_prediction_pipeline.joblib
-artifacts/metrics.json
-artifacts/metadata.json
+https://github.com/frnqpur/income-prediction-ml-app
 ```
 
-## Streamlit Community Cloud deployment
+Typical update flow:
 
-1. Push this folder to a GitHub repository.
-2. Go to Streamlit Community Cloud.
-3. Create a new app from the repository.
-4. Set the app entry point to:
+```powershell
+cd "E:\laragon\www\income-prediction-ml-app"
+git status
+git add .
+git commit -m "Update README and portfolio screenshots"
+git push origin main
+```
+
+---
+
+## Deploy to Streamlit Community Cloud
+
+1. Open Streamlit Community Cloud.
+2. Sign in with GitHub.
+3. Select the repository:
+
+```text
+frnqpur/income-prediction-ml-app
+```
+
+4. Select branch:
+
+```text
+main
+```
+
+5. Set main file path:
 
 ```text
 app.py
 ```
 
-If `app.py` is inside a subfolder, set the entry point to:
-
-```text
-demo-app/app.py
-```
-
-5. Make sure the `artifacts/` folder is included in the repository.
 6. Deploy the app.
 
-## Hugging Face Spaces deployment
+After deployment, test:
 
-1. Create a new Hugging Face Space.
-2. Choose **Streamlit** as the SDK.
-3. Upload or push the required files.
-4. Make sure `app.py`, `requirements.txt`, and `artifacts/` are available at the Space root.
-5. The Space will install dependencies and run the Streamlit app automatically.
+- homepage loads
+- form input works
+- prediction result appears
+- confidence/probability appears
+- model info appears
+- metrics appear
+- no missing artifact error
 
-## Recruiter demo checklist
+---
 
-Before sharing the link, confirm that:
+## Deploy to Hugging Face Spaces
 
-- [ ] `streamlit run app.py` works locally.
-- [ ] The form accepts one profile.
-- [ ] Prediction result appears correctly.
-- [ ] Confidence/probability appears when available.
-- [ ] Model metrics load from `artifacts/metrics.json`.
-- [ ] Model info loads from `artifacts/metadata.json`.
-- [ ] Missing model or JSON files show graceful errors.
-- [ ] The app does not expose sensitive data.
-- [ ] The app does not claim leaked notebook accuracy.
-- [ ] The README or portfolio case study explains that the old leakage issue was fixed.
+1. Create a new Space.
+2. Choose SDK:
 
-## Notes for portfolio
+```text
+Streamlit
+```
 
-This public demo intentionally excludes target-derived and sensitive columns such as `Class`, `cluster`, `race`, and `sex`. The goal is to show a clean portfolio-ready machine learning workflow, not to make real employment, credit, financial, or eligibility decisions.
+3. Upload or push the same repo files.
+4. Keep `app.py` and `requirements.txt` at the root.
+5. Ensure `artifacts/` is included.
+6. Wait for the Space to build.
+
+---
+
+## Troubleshooting
+
+### Model artifact could not be loaded
+
+Possible cause:
+
+```text
+scikit-learn version mismatch
+```
+
+Fix:
+
+```powershell
+pip install -r requirements.txt
+python train_model.py
+streamlit run app.py
+```
+
+Then commit the regenerated `.joblib` if needed.
+
+### FileNotFoundError for .joblib
+
+Check that this file exists:
+
+```text
+artifacts/income_prediction_pipeline.joblib
+```
+
+### Metrics not showing
+
+Check that this file exists:
+
+```text
+artifacts/metrics.json
+```
+
+### GitHub updated but Streamlit still shows old version
+
+Try:
+
+- reboot app from Streamlit dashboard
+- clear cache
+- check that Streamlit uses branch `main`
+- check that main file path is `app.py`
+
+---
+
+## Final Sync Checklist
+
+Before sharing the app to recruiters:
+
+```text
+[ ] Local app works.
+[ ] GitHub repo has the latest app.py.
+[ ] GitHub README shows all screenshots.
+[ ] GitHub has artifacts folder.
+[ ] Streamlit app is connected to the same GitHub repo.
+[ ] Streamlit app uses branch main.
+[ ] Streamlit main file path is app.py.
+[ ] Live app visual matches local app.
+[ ] README has the final live demo link.
+```
