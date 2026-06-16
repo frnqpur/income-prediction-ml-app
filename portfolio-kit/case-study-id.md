@@ -1,4 +1,4 @@
-# 10 Case Study ID — Income Prediction
+# Case Study ID — Income Prediction
 
 ## Meta SEO
 
