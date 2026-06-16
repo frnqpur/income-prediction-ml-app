@@ -1,0 +1,44 @@
+{
+  "project": "Income Prediction Demo",
+  "target_column": "income",
+  "target_classes": [
+    "<=50K",
+    ">50K"
+  ],
+  "feature_columns": [
+    "age",
+    "workclass",
+    "education",
+    "education.num",
+    "marital.status",
+    "occupation",
+    "relationship",
+    "capital.gain",
+    "capital.loss",
+    "hours.per.week"
+  ],
+  "numeric_features": [
+    "age",
+    "education.num",
+    "capital.gain",
+    "capital.loss",
+    "hours.per.week"
+  ],
+  "categorical_features": [
+    "workclass",
+    "education",
+    "marital.status",
+    "occupation",
+    "relationship"
+  ],
+  "excluded_columns": [
+    "Class",
+    "cluster",
+    "fnlwgt",
+    "race",
+    "sex",
+    "native.country"
+  ],
+  "leakage_note": "This demo model does not use Class, cluster, or any feature derived from the target.",
+  "fairness_note": "The public demo form excludes race and sex. Predictions are for portfolio demonstration only."
+}
