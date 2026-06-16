@@ -6,7 +6,7 @@
 
 An end-to-end machine learning portfolio project that predicts whether a person's income category is likely to be `<=50K` or `>50K` using selected work, education, and weekly-hour attributes.
 
-> **Live demo:** `[PASTE_YOUR_STREAMLIT_APP_URL_HERE](https://income-prediction-ml-app-gw2knwg6cjnnngjwltsp4c.streamlit.app/)`  
+> **Live demo:** https://income-prediction-ml-app-gw2knwg6cjnnngjwltsp4c.streamlit.app
 > **GitHub repository:** https://github.com/frnqpur/income-prediction-ml-app
 
 ---
