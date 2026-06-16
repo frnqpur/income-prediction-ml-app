@@ -1,4 +1,4 @@
-# 11 Case Study EN — Income Prediction
+# Case Study EN — Income Prediction
 
 ## SEO Metadata
 
